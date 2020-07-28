@@ -1,0 +1,24 @@
+
+CREATE TABLE FOOD (
+    NO INT IDENTITY PRIMARY KEY,
+    SAMPLE_ID VARCHAR,
+    NAME VARCHAR NOT NULL, -- 식품명
+    MAKER VARCHAR, -- 제조사
+    CHECK_YEAR VARCHAR, -- 조사년도
+    FOOD_TYPE VARCHAR, -- 식품분류
+    FOOD_GROUP VARCHAR, -- 식품군
+    FOOD_CODE VARCHAR, -- 식품코드
+    REF VARCHAR, -- 출처
+    SERVING_SIZE VARCHAR, -- 1회 제공량
+    KCAL_ENERGY VARCHAR, -- 에너지(kcal)
+    KJ_ENERGY VARCHAR, -- 에너지(kj)
+    PROTEIN DOUBLE, -- 단백질(G)
+    FAT DOUBLE, -- 당류(G)
+    CARBS DOUBLE, -- 탄수화물(G)
+    TOTAL_SUGAR DOUBLE, -- 총당류(G)
+    SODIUM INT, -- 나트륨(G)
+    CHOLESTEROL DOUBLE, -- 콜레스테롤(MG)
+    TOTAL_SATURATED_FAT DOUBLE, -- 총포화지방산(G) (SATURATED FATTY ACID)
+    PERCENT_TOTAL_SATURATED_FAT INT, -- 총포화지방산(%)
+    TRANS_FAT DOUBLE -- 트랜스지방산(g)
+);
