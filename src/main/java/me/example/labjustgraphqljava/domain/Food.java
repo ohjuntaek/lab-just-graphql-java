@@ -1,9 +1,11 @@
 package me.example.labjustgraphqljava.domain;
 
 import lombok.Builder;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 
 @Builder
+@ToString
 public class Food {
     @Id
     private final Long no;
