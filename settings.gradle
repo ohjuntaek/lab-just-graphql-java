@@ -1,1 +1,6 @@
 rootProject.name = 'lab-just-graphql-java'
+include 'module-common'
+include 'module-command'
+include 'module-query'
+include 'module-query'
+

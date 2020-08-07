@@ -1,4 +1,4 @@
-package me.example.labjustgraphqljava.dto;
+package command.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

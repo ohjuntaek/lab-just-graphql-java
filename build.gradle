@@ -1,82 +1,69 @@
-plugins {
-    id 'org.springframework.boot' version '2.3.2.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-    id 'java'
-    id 'nu.studer.jooq' version '4.2'
-}
-
-group = 'me.example'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
+buildscript {
+    ext {
+        springBootVersion = '2.3.2.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE"
     }
 }
 
-repositories {
-    mavenCentral()
-    jcenter()
-}
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    jooqRuntime 'com.h2database:h2:1.4.200'
-    runtimeOnly 'com.h2database:h2:1.4.200'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    sourceCompatibility = '11'
+
+    repositories {
+        mavenCentral()
+        jcenter()
     }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        compileOnly 'org.projectlombok:lombok'
+        developmentOnly 'org.springframework.boot:spring-boot-devtools'
+        runtimeOnly 'com.h2database:h2'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation('org.springframework.boot:spring-boot-starter-test') {
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
 
 //    implementation 'com.graphql-java:graphql-java:11.0' // NEW
 //    implementation 'com.graphql-java:graphql-java-spring-boot-starter-webmvc:1.0' // NEW
 //    implementation 'com.google.guava:guava:26.0-jre' // NEW
 
-
-    implementation 'org.springframework.boot:spring-boot-starter-jooq'
-
-}
-
-test {
-    useJUnitPlatform()
-}
-
-jooq {
-    sample(sourceSets.main) {
-        jdbc {
-            driver = 'org.h2.Driver'
-            url = 'jdbc:h2:tcp:localhost/~/test'
-            user = 'sa'
-            password = ''
-        }
-        generator {
-            name = 'org.jooq.codegen.DefaultGenerator'
-            database {
-                name = 'org.jooq.meta.h2.H2Database'
-                includes = '.*'
-                excludes = ''
-            }
-            target {
-                packageName = 'me.example.labjustgraphqljava.generated'
-            }
-        }
     }
 }
 
-tasks.generateSampleJooqSchemaSource.with {
-    def out = new ByteArrayOutputStream()
-    javaExecSpec = { JavaExecSpec s ->
-        s.standardOutput = out
-        s.errorOutput = out
-        s.ignoreExitValue = true
+project(':module-common') {
+    dependencies {
+
     }
-    execResultHandler = { ExecResult r ->
-        if (r.exitValue != 0) {
-            throw new RuntimeException('jOOQ source code generation failed:\n\n' + out.toString())
-        }
+}
+
+project(':module-command') {
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+        compile project(':module-common')
+    }
+}
+
+project(':module-query') {
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//        implementation 'com.querydsl:querydsl-jpa'
+        compile project(':module-common')
     }
 }

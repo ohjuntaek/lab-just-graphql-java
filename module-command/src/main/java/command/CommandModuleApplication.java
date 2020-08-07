@@ -1,13 +1,13 @@
-package me.example.labjustgraphqljava;
+package command;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LabJustGraphqlJavaApplication {
+public class CommandModuleApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(LabJustGraphqlJavaApplication.class, args);
+        SpringApplication.run(CommandModuleApplication.class, args);
     }
 
 }

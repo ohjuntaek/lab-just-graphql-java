@@ -1,4 +1,4 @@
-package me.example.labjustgraphqljava.domain;
+package command.domain;
 
 import lombok.Builder;
 import lombok.ToString;

@@ -1,6 +1,6 @@
-package me.example.labjustgraphqljava.domain;
+package command.domain;
 
-import me.example.labjustgraphqljava.dto.SearchInput;
+import command.dto.SearchInput;
 
 import java.util.List;
 
